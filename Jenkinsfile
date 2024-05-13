@@ -6,19 +6,24 @@ pipeline {
                 bat 'mvn -B -DskipTests clean package' 
             }
         }
+        stage('PMD') {
+            steps {
+                bat 'mvn pmd:pmd -Dformat=html'
+            }
+        }
         stage('Test') {
             steps {
-                bat 'mvn test -pl docs-core'
+                bat 'mvn test --fail-never'
             }
+        }
+        stage('Generate report'){
+           steps{
+	bat 'mvn surefire-report:report'
+	}
         }
         stage('Generate Javadoc') {
             steps {
                 bat 'mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false'
-            }
-        }
-        stage('PMD') {
-            steps {
-                bat 'mvn pmd:pmd -Dformat=html'
             }
         }
     }
