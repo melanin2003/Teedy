@@ -1,4 +1,4 @@
-pipeline {
+.pipeline {
     agent any
     stages {
         stage('Build') { 
@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Generate Javadoc') {
             steps {
-                bat 'mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false'
+                bat 'mvn javadoc:jar -Dmaven.javadoc.failOnError=false'
             }
         }
     }
