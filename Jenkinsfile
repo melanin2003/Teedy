@@ -4,8 +4,6 @@ pipeline {
         stage('Build') { 
             steps {
                 bat 'mvn -B -DskipTests clean package' 
-	bat 'mvn clean -DskipTests install'
-
             }
         }
         stage('PMD') {
@@ -15,13 +13,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test --fail-never'
+                bat 'mvn test -pl docs-core'
             }
-        }
-        stage('Generate report'){
-           steps{
-	bat 'mvn surefire-report:report'
-	}
         }
         stage('Generate Javadoc') {
             steps {
@@ -38,8 +31,6 @@ pipeline {
             archiveArtifacts artifacts: '**/target/surefire-reports/*.xml', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
             archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
         }
     }
 }
