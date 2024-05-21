@@ -3,23 +3,23 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                bat 'mvn -B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
 
         stage('Generate Javadoc') {
             steps {
-                bat 'mvn javadoc:jar -Dmaven.javadoc.failOnError=false'
+                sh 'mvn javadoc:jar -Dmaven.javadoc.failOnError=false'
             }
         }
         stage('PMD') {
             steps {
-                bat 'mvn pmd:pmd -Dformat=html'
+                sh 'mvn pmd:pmd -Dformat=html'
             }
         }
         stage('Test') {
               steps {
-                  bat 'mvn test -pl docs-core'
+                  sh 'mvn test -pl docs-core'
               }
         }
     }
