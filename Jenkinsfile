@@ -11,7 +11,7 @@ userRemoteConfigs: [[url: 'https://github.com/melanin2003/Teedy.git']])
         // Building Docker images
         stage('Building image') {
           steps{
-             sh 'docker build -t teedy:new .'
+             sh 'sudo docker build -t teedy:new .'
             }  
           }
     
@@ -19,9 +19,9 @@ userRemoteConfigs: [[url: 'https://github.com/melanin2003/Teedy.git']])
         stage('Upload image') {
           steps{ 
                //your command
-               sh 'docker tag teedy:new melanin2003/nodes:v2'
-               sh 'docker login -u melanin2003 -p 9621135238690sty'
-               sh 'docker push melanin2003/nodes:v2'
+               sh 'sudo docker tag teedy:new melanin2003/nodes:v2'
+               sh 'sudo docker login -u melanin2003 -p 9621135238690sty'
+               sh 'sudo docker push melanin2003/nodes:v2'
             }
           }
           
@@ -29,9 +29,9 @@ userRemoteConfigs: [[url: 'https://github.com/melanin2003/Teedy.git']])
          stage('Run containers'){
             steps{
                 
-                sh 'docker run -d -p 8084:8080 --name teedy01 teedy:new'
-                sh 'docker run -d -p 8082:8080 --name teedy02 teedy:new'
-                sh 'docker run -d -p 8083:8080 --name teedy03 teedy:new'
+                sh 'sudo docker run -d -p 8084:8080 --name teedy01 teedy:new'
+                sh 'sudo docker run -d -p 8082:8080 --name teedy02 teedy:new'
+                sh 'sudo docker run -d -p 8083:8080 --name teedy03 teedy:new'
                     //your command
          
             }
