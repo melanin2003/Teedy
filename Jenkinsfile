@@ -8,7 +8,7 @@ pipeline {
   }
   stage('K8s') {
     steps {
-        sh 'kubectl set image deployments/hello-node docs=melanin2003/nodes'
+        sh 'kubectl set image deployments/hello-node docs=melanin2003/nodes:v2'
     }
   }
 }
